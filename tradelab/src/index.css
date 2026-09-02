@@ -115,3 +115,721 @@ select {
   flex: 1;
   min-width: 0;
 }
+.topbar {
+  height: 65px;
+  background: #0e141b;
+  border-bottom: 1px solid #26303b;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 18px;
+}
+
+.market-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.symbol-name {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.current-price {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.price-change {
+  font-size: 12px;
+  color: #20c997;
+}
+
+.topbar-actions {
+  margin-left: auto;
+
+  display: flex;
+  gap: 8px;
+}
+
+.topbar-actions button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  background: #18212b;
+  border: 1px solid #26303b;
+
+  color: #cbd4de;
+
+  padding: 8px 12px;
+
+  border-radius: 6px;
+}
+
+.topbar-actions button:hover {
+  color: white;
+}
+
+.topbar-actions .reset-button {
+  background: #173d34;
+  border-color: #235e4f;
+  color: #77e0c2;
+}
+/* charttoolbar */
+
+.chart-toolbar {
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 0 12px;
+
+  background: #0e141b;
+
+  border-bottom: 1px solid #26303b;
+}
+
+.chart-toolbar button,
+.chart-toolbar select {
+  background: #151d26;
+
+  border: 1px solid #26303b;
+
+  color: #aeb9c6;
+
+  padding: 6px 9px;
+
+  border-radius: 5px;
+
+  font-size: 12px;
+}
+
+.chart-toolbar button:hover {
+  color: white;
+}
+
+.chart-toolbar button.selected {
+  background: #20352f;
+
+  border-color: #285a4e;
+
+  color: #7ce2c4;
+}
+
+.chart-toolbar select {
+  outline: none;
+}
+
+/*TRADING CHART*/
+.chart-panel {
+  flex: 1;
+
+  min-width: 0;
+
+  background: #0b1016;
+}
+
+.chart-container {
+  position: relative;
+
+  height: calc(100% - 48px);
+
+  overflow: hidden;
+}
+
+.chart-placeholder {
+  position: absolute;
+
+  inset: 0;
+
+  background-image:
+    linear-gradient(#18222c 1px, transparent 1px),
+    linear-gradient(90deg, #18222c 1px, transparent 1px);
+
+  background-size:
+    10% 12%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-message {
+  text-align: center;
+
+  color: #65717e;
+}
+
+.chart-message h2 {
+  margin: 10px 0 5px;
+
+  color: #9ba7b4;
+
+  font-size: 18px;
+}
+
+.chart-message p {
+  font-size: 12px;
+}
+
+.chart-title {
+  position: absolute;
+
+  top: 15px;
+  left: 18px;
+
+  z-index: 2;
+
+  color: #8c98a7;
+
+  font-size: 12px;
+}
+.trading-page {
+  height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.trading-workspace {
+  flex: 1;
+
+  min-height: 0;
+
+  display: flex;
+}
+/*Order Pnnel Css*/
+.order-panel {
+  width: 330px;
+
+  background: #10161e;
+
+  border-left: 1px solid #26303b;
+
+  overflow-y: auto;
+}
+
+.panel-section {
+  padding: 15px;
+
+  border-bottom: 1px solid #26303b;
+}
+
+.panel-section h3 {
+  font-size: 12px;
+
+  color: #d8e0e8;
+
+  margin-bottom: 13px;
+}
+
+
+/* Account */
+
+.account-balance {
+  font-size: 25px;
+
+  font-weight: 800;
+}
+
+.account-label {
+  margin-top: 4px;
+
+  color: #8995a3;
+
+  font-size: 11px;
+}
+
+.account-metrics {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin-top: 13px;
+}
+
+.metric {
+  background: #151c25;
+
+  border: 1px solid #26303b;
+
+  padding: 10px;
+
+  border-radius: 6px;
+}
+
+.metric span {
+  display: block;
+
+  color: #768290;
+
+  font-size: 10px;
+
+  margin-bottom: 5px;
+}
+
+.metric strong {
+  font-size: 12px;
+}
+
+.profit {
+  color: #20c997;
+}
+
+
+/* Buy / Sell */
+
+.order-tabs {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  margin-bottom: 13px;
+}
+
+.order-tabs button {
+  padding: 9px;
+
+  border: 1px solid #26303b;
+
+  background: #151c25;
+
+  color: #aab4bf;
+
+  font-weight: 600;
+}
+
+.order-tabs .buy {
+  border-radius: 5px 0 0 5px;
+}
+
+.order-tabs .sell {
+  border-radius: 0 5px 5px 0;
+}
+
+.order-tabs .buy.active {
+  background: #173b32;
+
+  color: #6fe0bd;
+
+  border-color: #27614f;
+}
+
+.order-tabs .sell.active {
+  background: #422027;
+
+  color: #ff8c98;
+
+  border-color: #71343d;
+}
+
+
+/* Form */
+
+.form-field {
+  margin-bottom: 10px;
+}
+
+.form-field label {
+  display: block;
+
+  color: #7f8b98;
+
+  font-size: 10px;
+
+  margin-bottom: 5px;
+}
+
+.form-field input {
+  width: 100%;
+
+  padding: 9px;
+
+  background: #0c1218;
+
+  border: 1px solid #26303b;
+
+  border-radius: 5px;
+
+  color: #dce4ed;
+
+  outline: none;
+}
+
+.form-field input:focus {
+  border-color: #20c997;
+}
+
+
+/* Order buttons */
+
+.order-buttons {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 8px;
+
+  margin-top: 13px;
+}
+
+.order-buttons button {
+  padding: 11px;
+
+  border-radius: 5px;
+
+  border: 0;
+
+  color: white;
+
+  font-weight: 700;
+
+  font-size: 11px;
+}
+
+.buy-order {
+  background: #1b8e70;
+}
+
+.sell-order {
+  background: #c84455;
+}
+
+.buy-order:hover {
+  background: #20a780;
+}
+
+.sell-order:hover {
+  background: #df4d60;
+}
+
+
+/* Watchlist */
+
+.watch-item {
+  display: flex;
+
+  justify-content: space-between;
+
+  padding: 9px 0;
+
+  border-bottom: 1px solid #1c252f;
+
+  font-size: 12px;
+
+  color: #c6ced8;
+}
+
+.watch-item:last-child {
+  border-bottom: 0;
+}
+
+.watch-item strong {
+  font-weight: 600;
+}
+/*positionsanel*/
+.positions-panel {
+  height: 220px;
+
+  background: #0e141b;
+
+  border-top: 1px solid #26303b;
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+
+/* Tabs */
+
+.position-tabs {
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 22px;
+
+  padding-left: 15px;
+
+  border-bottom: 1px solid #26303b;
+}
+
+.position-tabs button {
+  height: 100%;
+
+  background: none;
+
+  border: 0;
+
+  color: #7f8b99;
+
+  font-size: 12px;
+
+  border-bottom: 2px solid transparent;
+}
+
+.position-tabs button:hover {
+  color: white;
+}
+
+.position-tabs button.active {
+  color: white;
+
+  border-bottom-color: #20c997;
+}
+
+
+/* Table */
+
+.table-container {
+  overflow: auto;
+
+  flex: 1;
+}
+
+.table-container table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 11px;
+}
+
+.table-container th,
+.table-container td {
+  text-align: left;
+
+  padding: 9px 13px;
+
+  border-bottom: 1px solid #1b242e;
+
+  white-space: nowrap;
+}
+
+.table-container th {
+  color: #697583;
+
+  font-weight: 600;
+}
+
+.table-container td {
+  color: #c6ced8;
+}
+
+
+/* Profit / Loss */
+
+.profit {
+  color: #20c997 !important;
+}
+
+.loss {
+  color: #ff5c6c !important;
+}
+
+
+/* Close button */
+
+.close-position {
+  background: #252e38;
+
+  border: 0;
+
+  color: #dce4ed;
+
+  padding: 5px 9px;
+
+  border-radius: 4px;
+
+  font-size: 10px;
+}
+
+.close-position:hover {
+  background: #343f4b;
+}
+
+
+/* Empty state */
+
+.empty-state {
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  color: #687482;
+
+  text-align: center;
+}
+
+.empty-state h3 {
+  color: #9ba6b2;
+
+  font-size: 13px;
+
+  margin-bottom: 5px;
+}
+
+.empty-state p {
+  font-size: 11px;
+}
+/*trading page*/
+.left-trading-area {
+  flex: 1;
+
+  min-width: 0;
+
+  min-height: 0;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.left-trading-area .chart-panel {
+  flex: 1;
+
+  min-height: 300px;
+}
+/* =========================
+   CHART TOOLBAR
+========================= */
+
+.chart-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 14px;
+
+  background: #111827;
+  border-bottom: 1px solid #1f2937;
+
+  min-height: 48px;
+}
+
+
+/* =========================
+   SYMBOL SELECT
+========================= */
+
+.chart-toolbar select {
+  background: #1f2937;
+  color: #ffffff;
+
+  border: 1px solid #374151;
+  border-radius: 6px;
+
+  padding: 8px 12px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  outline: none;
+  cursor: pointer;
+}
+
+.chart-toolbar select:hover {
+  border-color: #4b5563;
+}
+
+.chart-toolbar select:focus {
+  border-color: #2563eb;
+}
+
+
+/* =========================
+   TIMEFRAME BUTTONS
+========================= */
+
+.chart-toolbar button {
+  background: transparent;
+  color: #9ca3af;
+
+  border: 1px solid #374151;
+  border-radius: 6px;
+
+  padding: 7px 12px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+/* Hover */
+
+.chart-toolbar button:hover {
+  background: #1f2937;
+  color: #ffffff;
+  border-color: #4b5563;
+}
+
+
+/* Selected timeframe */
+
+.chart-toolbar button.selected {
+  background: #2563eb;
+  color: #ffffff;
+
+  border-color: #2563eb;
+}
+
+
+/* =========================
+   TOOL BUTTONS
+========================= */
+
+.chart-toolbar button:nth-last-child(2),
+.chart-toolbar button:last-child {
+  margin-left: 4px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .chart-toolbar {
+    overflow-x: auto;
+    white-space: nowrap;
+
+    padding: 8px 10px;
+  }
+
+  .chart-toolbar select {
+    flex-shrink: 0;
+  }
+
+  .chart-toolbar button {
+    flex-shrink: 0;
+  }
+}
