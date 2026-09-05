@@ -1,4 +1,9 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useMemo,
+  useState
+} from "react";
 
 const TradingContext = createContext();
 
@@ -38,10 +43,13 @@ export function TradingProvider({ children }) {
     symbol,
     currentPrice
   ) => {
-    setPositions((currentPositions) =>
-      currentPositions.map((position) => {
+    setPositions((currentPositions) => {
+      const remainingPositions = [];
+
+      currentPositions.forEach((position) => {
         if (position.symbol !== symbol) {
-          return position;
+          remainingPositions.push(position);
+          return;
         }
 
         const priceDifference =
@@ -54,13 +62,70 @@ export function TradingProvider({ children }) {
           position.volume *
           100000;
 
-        return {
+        let shouldClose = false;
+        let closeReason = null;
+
+        // Stop Loss
+        if (position.stopLoss !== null) {
+          if (
+            position.side === "BUY" &&
+            currentPrice <= position.stopLoss
+          ) {
+            shouldClose = true;
+            closeReason = "Stop Loss";
+          }
+
+          if (
+            position.side === "SELL" &&
+            currentPrice >= position.stopLoss
+          ) {
+            shouldClose = true;
+            closeReason = "Stop Loss";
+          }
+        }
+
+        // Take Profit
+        if (position.takeProfit !== null) {
+          if (
+            position.side === "BUY" &&
+            currentPrice >= position.takeProfit
+          ) {
+            shouldClose = true;
+            closeReason = "Take Profit";
+          }
+
+          if (
+            position.side === "SELL" &&
+            currentPrice <= position.takeProfit
+          ) {
+            shouldClose = true;
+            closeReason = "Take Profit";
+          }
+        }
+
+        // Automatically close position
+        if (shouldClose) {
+          setBalance(
+            (currentBalance) =>
+              currentBalance + profit
+          );
+
+          console.log(
+            `${position.symbol} ${position.side} closed by ${closeReason}`
+          );
+
+          return;
+        }
+
+        remainingPositions.push({
           ...position,
           currentPrice,
           profit
-        };
-      })
-    );
+        });
+      });
+
+      return remainingPositions;
+    });
   };
 
   const closePosition = (positionId) => {
@@ -92,7 +157,8 @@ export function TradingProvider({ children }) {
     );
   }, [positions]);
 
-  const equity = balance + floatingProfit;
+  const equity =
+    balance + floatingProfit;
 
   return (
     <TradingContext.Provider
