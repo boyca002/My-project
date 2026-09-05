@@ -833,3 +833,299 @@ select {
     flex-shrink: 0;
   }
 }
+.top-bar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: #111827;
+  border-bottom: 1px solid #1f2937;
+}
+
+.market-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.market-symbol {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.market-price {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.price-change {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.price-change.positive {
+  color: #22c55e;
+}
+
+.price-change.negative {
+  color: #ef4444;
+}
+
+.top-bar-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.top-bar-actions button {
+  background: transparent;
+  border: 1px solid #374151;
+  color: #9ca3af;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.top-bar-actions button:hover {
+  background: #1f2937;
+  color: #ffffff;
+}
+.order-panel {
+  width: 280px;
+  min-width: 280px;
+  padding: 18px;
+  background: #111827;
+  border-left: 1px solid #1f2937;
+}
+
+.order-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.order-panel-header h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.order-panel-header span {
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #1f2937;
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.order-symbol {
+  color: #9ca3af;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.order-price {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.order-field {
+  margin-bottom: 16px;
+}
+
+.order-field label {
+  display: block;
+  margin-bottom: 6px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.order-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 10px;
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  color: #ffffff;
+  outline: none;
+}
+
+.order-field input:focus {
+  border-color: #2563eb;
+}
+
+.order-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.order-buttons button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.buy-button {
+  background: #16a34a;
+}
+
+.buy-button:hover {
+  background: #15803d;
+}
+
+.sell-button {
+  background: #dc2626;
+}
+
+.sell-button:hover {
+  background: #b91c1c;
+}
+.positions-panel {
+  background: #111827;
+  border-top: 1px solid #1f2937;
+  min-height: 150px;
+  color: #ffffff;
+}
+
+.positions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid #1f2937;
+}
+
+.positions-header h3 {
+  margin: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.positions-header span {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.empty-positions {
+  padding: 30px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.position-row {
+  display: grid;
+  grid-template-columns:
+    1.5fr
+    0.7fr
+    1fr
+    1fr
+    0.8fr;
+
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 18px;
+
+  border-bottom: 1px solid #1f2937;
+}
+
+.position-symbol {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.position-symbol strong {
+  font-size: 13px;
+}
+
+.position-symbol span {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.position-buy {
+  background: #14532d;
+  color: #4ade80;
+}
+
+.position-sell {
+  background: #7f1d1d;
+  color: #f87171;
+}
+
+.position-volume,
+.position-entry {
+  color: #d1d5db;
+  font-size: 13px;
+}
+
+.position-profit {
+  color: #22c55e;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.close-position-button {
+  padding: 6px 10px;
+  background: transparent;
+  border: 1px solid #374151;
+  border-radius: 5px;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.close-position-button:hover {
+  background: #1f2937;
+  color: #ffffff;
+}
+.account-summary {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 12px 18px;
+  background: #0f172a;
+  border-bottom: 1px solid #1f2937;
+}
+
+.account-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.account-stat span {
+  color: #6b7280;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.account-stat strong {
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.profit-positive {
+  color: #22c55e !important;
+}
+
+.profit-negative {
+  color: #ef4444 !important;
+}

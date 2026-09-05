@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import { NavLink } from "react-router-dom";
+import {useTrading} from "../context/TradingContext";
 
 const menuItems = [
   {
@@ -55,6 +56,7 @@ const menuItems = [
 ];
 
 function Sidebar() {
+  const {balance} =useTrading();
   return (
     <aside className="sidebar">
 
@@ -66,7 +68,7 @@ function Sidebar() {
       {/* Demo Account */}
       <div className="demo-account">
         <div>● DEMO ACCOUNT</div>
-        <strong>$10,000.00 Virtual</strong>
+        <strong>${balance.toFixed(2)} Virtual</strong>
       </div>
 
       {/* Navigation */}

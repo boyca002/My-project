@@ -11,40 +11,68 @@ import Settings from "./pages/Settings";
 
 import TradingLayout from "./Layout/TradingLayout";
 
+import { TradingProvider } from "./context/TradingContext";
+
 import "./index.css";
 
 function App() {
   return (
     <BrowserRouter>
-      <TradingLayout>
-        <Routes>
+      <TradingProvider>
+        <TradingLayout>
+          <Routes>
+            <Route
+              path="/trading"
+              element={<Trading />}
+            />
 
-          {/* Main trading platform */}
-          <Route path="/trading" element={<Trading />} />
+            <Route
+              path="/dashboard"
+              element={<Dashboard />}
+            />
 
-          {/* Platform pages */}
-          <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/strategies"
+              element={<Strategies />}
+            />
 
-          <Route path="/strategies" element={<Strategies />} />
+            <Route
+              path="/backtesting"
+              element={<Backtesting />}
+            />
 
-          <Route path="/backtesting" element={<Backtesting />} />
+            <Route
+              path="/trade-history"
+              element={<TradeHistory />}
+            />
 
-          <Route path="/trade-history" element={<TradeHistory />} />
+            <Route
+              path="/statistics"
+              element={<Statistics />}
+            />
 
-          <Route path="/statistics" element={<Statistics />} />
+            <Route
+              path="/journal"
+              element={<Journal />}
+            />
 
-          <Route path="/journal" element={<Journal />} />
+            <Route
+              path="/settings"
+              element={<Settings />}
+            />
 
-          <Route path="/settings" element={<Settings />} />
-
-          {/* Redirect root to trading */}
-          <Route
-            path="/"
-            element={<Navigate to="/trading" replace />}
-          />
-
-        </Routes>
-      </TradingLayout>
+            <Route
+              path="/"
+              element={
+                <Navigate
+                  to="/trading"
+                  replace
+                />
+              }
+            />
+          </Routes>
+        </TradingLayout>
+      </TradingProvider>
     </BrowserRouter>
   );
 }

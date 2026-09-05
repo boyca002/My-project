@@ -1,181 +1,76 @@
-import { useState } from "react";
-
-const demoPositions = [
-  {
-    id: 1,
-    symbol: "XAU/USD",
-    side: "BUY",
-    volume: 0.1,
-    entry: 1.17240,
-    current: 1.17310,
-    pnl: 7.0
-  },
-  {
-    id: 2,
-    symbol: "GBP/USD",
-    side: "SELL",
-    volume: 0.2,
-    entry: 1.35410,
-    current: 1.35320,
-    pnl: 18.0
-  }
-];
+import { useTrading } from "../context/TradingContext";
 
 function PositionsPanel() {
-  const [activeTab, setActiveTab] = useState("positions");
-
-  const [positions, setPositions] = useState(demoPositions);
-
-  function closePosition(id) {
-    setPositions((currentPositions) =>
-      currentPositions.filter((position) => position.id !== id)
-    );
-  }
+  const {
+    positions,
+    closePosition
+  } = useTrading();
 
   return (
     <section className="positions-panel">
 
-      {/* Tabs */}
+      <div className="positions-header">
+        <h3>Positions</h3>
 
-      <div className="position-tabs">
-
-        <button
-          className={activeTab === "positions" ? "active" : ""}
-          onClick={() => setActiveTab("positions")}
-        >
-          Positions ({positions.length})
-        </button>
-
-        <button
-          className={activeTab === "orders" ? "active" : ""}
-          onClick={() => setActiveTab("orders")}
-        >
-          Orders
-        </button>
-
-        <button
-          className={activeTab === "history" ? "active" : ""}
-          onClick={() => setActiveTab("history")}
-        >
-          Trade History
-        </button>
-
+        <span>
+          {positions.length} open
+        </span>
       </div>
 
+      {positions.length === 0 ? (
+        <div className="empty-positions">
+          No open positions
+        </div>
+      ) : (
+        <div className="positions-list">
 
-      {/* Positions */}
+          {positions.map((position) => (
+            <div
+              className="position-row"
+              key={position.id}
+            >
 
-      {activeTab === "positions" && (
+              <div className="position-symbol">
+                <strong>
+                  {position.symbol}
+                </strong>
 
-        <div className="table-container">
+                <span
+                  className={
+                    position.side === "BUY"
+                      ? "position-buy"
+                      : "position-sell"
+                  }
+                >
+                  {position.side}
+                </span>
+              </div>
 
-          <table>
+              <div className="position-volume">
+                {position.volume}
+              </div>
 
-            <thead>
+              <div className="position-entry">
+                {position.entryPrice.toFixed(5)}
+              </div>
 
-              <tr>
-                <th>Symbol</th>
-                <th>Side</th>
-                <th>Volume</th>
-                <th>Entry</th>
-                <th>Current</th>
-                <th>P/L</th>
-                <th>Action</th>
-              </tr>
+              <div className="position-profit">
+                ${position.profit.toFixed(2)}
+              </div>
 
-            </thead>
+              <button
+                className="close-position-button"
+                onClick={() =>
+                  closePosition(position.id)
+                }
+              >
+                Close
+              </button>
 
-            <tbody>
-
-              {positions.map((position) => (
-
-                <tr key={position.id}>
-
-                  <td>{position.symbol}</td>
-
-                  <td
-                    className={
-                      position.side === "BUY"
-                        ? "profit"
-                        : "loss"
-                    }
-                  >
-                    {position.side}
-                  </td>
-
-                  <td>{position.volume.toFixed(2)}</td>
-
-                  <td>{position.entry.toFixed(5)}</td>
-
-                  <td>{position.current.toFixed(5)}</td>
-
-                  <td
-                    className={
-                      position.pnl >= 0
-                        ? "profit"
-                        : "loss"
-                    }
-                  >
-                    +${position.pnl.toFixed(2)}
-                  </td>
-
-                  <td>
-
-                    <button
-                      className="close-position"
-                      onClick={() =>
-                        closePosition(position.id)
-                      }
-                    >
-                      Close
-                    </button>
-
-                  </td>
-
-                </tr>
-
-              ))}
-
-            </tbody>
-
-          </table>
+            </div>
+          ))}
 
         </div>
-
-      )}
-
-
-      {/* Orders */}
-
-      {activeTab === "orders" && (
-
-        <div className="empty-state">
-
-          <h3>No pending orders</h3>
-
-          <p>
-            Pending limit and stop orders will appear here.
-          </p>
-
-        </div>
-
-      )}
-
-
-      {/* History */}
-
-      {activeTab === "history" && (
-
-        <div className="empty-state">
-
-          <h3>No trade history</h3>
-
-          <p>
-            Closed trades will appear here.
-          </p>
-
-        </div>
-
       )}
 
     </section>
