@@ -72,7 +72,7 @@ function Trading() {
 
     intervalId = setInterval(() => {
       loadPrice();
-    }, 10000);
+    }, 1000);
 
     return () => {
       clearInterval(intervalId);

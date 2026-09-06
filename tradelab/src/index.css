@@ -1129,3 +1129,37 @@ select {
 .profit-negative {
   color: #ef4444 !important;
 }
+.history-statistics {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.history-stat {
+  padding: 16px;
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+}
+
+.history-stat span {
+  display: block;
+  margin-bottom: 8px;
+  color: #6b7280;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.history-stat strong {
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.stat-positive {
+  color: #22c55e !important;
+}
+
+.stat-negative {
+  color: #ef4444 !important;
+}

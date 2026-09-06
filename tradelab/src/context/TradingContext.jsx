@@ -12,6 +12,8 @@ export function TradingProvider({ children }) {
 
   const [positions, setPositions] = useState([]);
 
+  const [tradeHistory, setTradeHistory] = useState([]);
+
   const openPosition = ({
     symbol,
     side,
@@ -36,6 +38,31 @@ export function TradingProvider({ children }) {
     setPositions((currentPositions) => [
       ...currentPositions,
       newPosition
+    ]);
+  };
+
+  const addToTradeHistory = (
+    position,
+    exitPrice,
+    profit,
+    reason
+  ) => {
+    const closedTrade = {
+      id: Date.now(),
+      symbol: position.symbol,
+      side: position.side,
+      volume: position.volume,
+      entryPrice: position.entryPrice,
+      exitPrice,
+      profit,
+      reason,
+      openedAt: position.openedAt,
+      closedAt: new Date().toISOString()
+    };
+
+    setTradeHistory((currentHistory) => [
+      closedTrade,
+      ...currentHistory
     ]);
   };
 
@@ -110,6 +137,13 @@ export function TradingProvider({ children }) {
               currentBalance + profit
           );
 
+          addToTradeHistory(
+            position,
+            currentPrice,
+            profit,
+            closeReason
+          );
+
           console.log(
             `${position.symbol} ${position.side} closed by ${closeReason}`
           );
@@ -143,6 +177,13 @@ export function TradingProvider({ children }) {
           currentBalance + position.profit
       );
 
+      addToTradeHistory(
+        position,
+        position.currentPrice,
+        position.profit,
+        "Manual Close"
+      );
+
       return currentPositions.filter(
         (item) => item.id !== positionId
       );
@@ -165,6 +206,7 @@ export function TradingProvider({ children }) {
       value={{
         balance,
         positions,
+        tradeHistory,
         floatingProfit,
         equity,
         openPosition,
