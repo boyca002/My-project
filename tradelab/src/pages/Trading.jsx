@@ -10,6 +10,8 @@ import OrderPanel from "../components/OrderPanel";
 import PositionsPanel from "../components/PositionsPanel";
 import { getMarketData } from "../services/marketAPI";
 
+import {testBackend} from "../services/api.js";
+
 function Trading() {
   const [symbol, setSymbol] = useState("EUR/USD");
   const [timeframe, setTimeframe] = useState("15m");
@@ -72,13 +74,24 @@ function Trading() {
 
     intervalId = setInterval(() => {
       loadPrice();
-    }, 10000);
+    }, 1000);
 
     return () => {
       clearInterval(intervalId);
     };
 
   }, [symbol, timeframe,updatePositionPrices]);
+
+useEffect(()=>{
+  testBackend()
+  .then((data)=>{
+    console.log("Backend test successful:", data);
+  })
+  .catch((error)=>{
+    console.error("Backend test failed:", error);
+  });
+
+},[]);
 
   return (
     <div className="trading-page">

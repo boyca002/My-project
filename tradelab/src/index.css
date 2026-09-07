@@ -1129,3 +1129,255 @@ select {
 .profit-negative {
   color: #ef4444 !important;
 }
+.history-statistics {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.history-stat {
+  padding: 16px;
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+}
+
+.history-stat span {
+  display: block;
+  margin-bottom: 8px;
+  color: #6b7280;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.history-stat strong {
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.stat-positive {
+  color: #22c55e !important;
+}
+
+.stat-negative {
+  color: #ef4444 !important;
+}
+.risk-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.risk-info > div {
+  padding: 10px;
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  border-radius: 6px;
+}
+
+.risk-info span {
+  display: block;
+  margin-bottom: 5px;
+  color: #6b7280;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.risk-info strong {
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.suggested-volume {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -5px;
+  margin-bottom: 16px;
+  padding: 10px;
+  background: #172033;
+  border: 1px solid #374151;
+  border-radius: 6px;
+}
+
+.suggested-volume span {
+  display: block;
+  margin-bottom: 4px;
+  color: #9ca3af;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.suggested-volume strong {
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.suggested-volume button {
+  padding: 6px 10px;
+  background: #2563eb;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.suggested-volume button:hover {
+  background: #1d4ed8;
+}
+.actual-risk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 10px;
+  margin-top: -5px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+}
+
+.actual-risk span {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.actual-risk strong {
+  font-size: 13px;
+}
+
+.risk-safe {
+  background: #14532d;
+  border: 1px solid #166534;
+}
+
+.risk-safe span,
+.risk-safe strong {
+  color: #4ade80;
+}
+
+.risk-danger {
+  background: #7f1d1d;
+  border: 1px solid #991b1b;
+}
+
+.risk-danger span,
+.risk-danger strong {
+  color: #f87171;
+}
+.rr-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: -5px;
+  margin-bottom: 16px;
+}
+
+.rr-info > div {
+  padding: 10px;
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  border-radius: 6px;
+}
+
+.rr-info span {
+  display: block;
+  margin-bottom: 5px;
+  color: #6b7280;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.rr-info strong {
+  color: #ffffff;
+  font-size: 13px;
+}
+.rr-good {
+  color: #4ade80 !important;
+}
+
+.rr-bad {
+  color: #f87171 !important;
+}
+
+.rr-minimum {
+  grid-column: 1 / -1;
+  padding-top: 8px;
+  border-top: 1px solid #1f2937;
+}
+
+.rr-minimum strong {
+  color: #9ca3af;
+}
+.daily-risk-status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 10px;
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  border-radius: 6px;
+}
+
+.daily-risk-status > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.daily-risk-status span {
+  color: #6b7280;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.daily-risk-status strong {
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.daily-profit {
+  color: #4ade80 !important;
+}
+
+.daily-loss {
+  color: #f87171 !important;
+}
+
+.daily-risk-locked {
+  border-color: #991b1b;
+  background: #2a1115;
+}
+
+.daily-risk-locked-message {
+  grid-column: 1 / -1;
+  padding-top: 8px;
+  margin-top: 4px;
+  border-top: 1px solid #7f1d1d;
+  color: #f87171;
+  font-size: 11px;
+  font-weight: 700;
+}
+.execution-price-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 10px;
+  margin-bottom: 16px;
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  border-radius: 6px;
+}
+
+.execution-price-info span {
+  color: #6b7280;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.execution-price-info strong {
+  color: #ffffff;
+  font-size: 13px;
+}
