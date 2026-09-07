@@ -14,6 +14,9 @@ export function TradingProvider({ children }) {
 
   const [tradeHistory, setTradeHistory] = useState([]);
 
+  // Risk management
+  const [riskPercent, setRiskPercent] = useState(1);
+
   const openPosition = ({
     symbol,
     side,
@@ -190,6 +193,7 @@ export function TradingProvider({ children }) {
     });
   };
 
+  // Floating profit
   const floatingProfit = useMemo(() => {
     return positions.reduce(
       (total, position) =>
@@ -198,8 +202,30 @@ export function TradingProvider({ children }) {
     );
   }, [positions]);
 
+  // Equity
   const equity =
     balance + floatingProfit;
+
+  // Used Margin
+  const usedMargin = positions.reduce(
+    (total, position) =>
+      total + (position.volume * 1000),
+    0
+  );
+
+  // Free Margin
+  const freeMargin =
+    equity - usedMargin;
+
+  // Margin Level
+  const marginLevel =
+    usedMargin > 0
+      ? (equity / usedMargin) * 100
+      : 0;
+
+  // Maximum money allowed to risk
+  const maxRiskAmount =
+    balance * (riskPercent / 100);
 
   return (
     <TradingContext.Provider
@@ -207,8 +233,18 @@ export function TradingProvider({ children }) {
         balance,
         positions,
         tradeHistory,
+
         floatingProfit,
         equity,
+
+        usedMargin,
+        freeMargin,
+        marginLevel,
+
+        riskPercent,
+        setRiskPercent,
+        maxRiskAmount,
+
         openPosition,
         updatePositionPrices,
         closePosition

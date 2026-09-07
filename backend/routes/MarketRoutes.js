@@ -3,73 +3,109 @@ import express from "express";
 const router = express.Router();
 
 router.get("/market", async (req, res) => {
-  try {console.log(
-  "Finnhub key being used:",
-  process.env.FINNHUB_API_KEY
-    ? `${process.env.FINNHUB_API_KEY.slice(0, 4)}...${process.env.FINNHUB_API_KEY.slice(-4)}`
-    : "NOT FOUND"
-);
+  try {
     const {
-      symbol = "OANDA:EUR_USD",
+      symbol = "EUR/USD",
       timeframe = "15m"
     } = req.query;
 
-    const resolutionMap = {
-      "1m": "1",
-      "5m": "5",
-      "15m": "15",
-      "1H": "60",
-      "4H": "240",
-      "1D": "D"
+    // Frontend symbol → BiQuote symbol
+    const symbolMap = {
+      "EUR/USD": "EURUSD",
+      "GBP/USD": "GBPUSD",
+      "USD/JPY": "USDJPY",
+      "XAU/USD": "XAUUSD",
+      "BTC/USD": "BTCUSD"
     };
 
-    const resolution = resolutionMap[timeframe];
+    const apiSymbol = symbolMap[symbol];
 
-    if (!resolution) {
+    if (!apiSymbol) {
       return res.status(400).json({
         success: false,
-        message: "Invalid timeframe"
+        message: `Unsupported symbol: ${symbol}`
       });
     }
 
-    const now = Math.floor(Date.now() / 1000);
+    // Frontend timeframe → BiQuote interval
+    const timeframeMap = {
+      "1m": "1m",
+      "5m": "5m",
+      "15m": "15m",
+      "1H": "1h",
+      "4H": "4h",
+      "1D": "1d"
+    };
 
-    // Get approximately 100 candles
-    const secondsPerCandle =
-      resolution === "D"
-        ? 86400
-        : Number(resolution) * 60;
+    const apiTimeframe =
+      timeframeMap[timeframe];
 
-    const from =
-      now - secondsPerCandle * 100;
+    if (!apiTimeframe) {
+      return res.status(400).json({
+        success: false,
+        message: `Unsupported timeframe: ${timeframe}`
+      });
+    }
 
     const url =
-      `https://finnhub.io/api/v1/forex/candle` +
-      `?symbol=${encodeURIComponent(symbol)}` +
-      `&resolution=${resolution}` +
-      `&from=${from}` +
-      `&to=${now}` +
-      `&token=${process.env.FINNHUB_API_KEY}`;
+      `https://biquote.io/api/${apiSymbol}/ohlc` +
+      `?interval=${apiTimeframe}` +
+      `&limit=100`;
+
+    console.log(
+      `Market request: ${symbol} ${timeframe}`
+    );
 
     const response = await fetch(url);
 
-    const data = await response.json();
+    if (!response.ok) {
+      const errorText =
+        await response.text();
 
-    if (!response.ok || data.s !== "ok") {
-      return res.status(400).json({
+      console.error(
+        "BiQuote error:",
+        errorText
+      );
+
+      return res.status(response.status).json({
         success: false,
-        message: data.error || "Finnhub market API error",
-        data
+        message: "BiQuote market API error",
+        error: errorText
       });
     }
 
-    const candles = data.t.map((timestamp, index) => ({
-      time: timestamp,
-      open: data.o[index],
-      high: data.h[index],
-      low: data.l[index],
-      close: data.c[index]
-    }));
+    const data =
+      await response.json();
+
+    console.log(
+      `Received ${data.bars?.length || 0} bars`
+    );
+
+    if (
+      !data.bars ||
+      data.bars.length === 0
+    ) {
+      return res.status(404).json({
+        success: false,
+        message: "No market data available"
+      });
+    }
+
+    const candles = data.bars
+      .map((bar) => ({
+        time: Math.floor(
+          new Date(
+            bar.openTime
+          ).getTime() / 1000
+        ),
+        open: Number(bar.open),
+        high: Number(bar.high),
+        low: Number(bar.low),
+        close: Number(bar.close)
+      }))
+      .sort(
+        (a, b) => a.time - b.time
+      );
 
     res.json({
       success: true,
@@ -79,11 +115,15 @@ router.get("/market", async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Market data error:", error);
+    console.error(
+      "Market data error:",
+      error
+    );
 
     res.status(500).json({
       success: false,
-      message: "Failed to fetch market data"
+      message:
+        "Failed to fetch market data"
     });
   }
 });
