@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 import TopBar from "../components/TopBar";
 import TradingChart from "../components/TradingCharts";
@@ -6,11 +6,24 @@ import OrderPanel from "../components/OrderPanel";
 import PositionsPanel from "../components/PositionsPanel";
 import ChartToolbar from "../components/ChartToolBar";
 
+import {testBackend} from "../services/api.js";
+
 function Trading() {
 
   const [timeframe, setTimeframe] = useState("15m");
 
   const [symbol, setSymbol] = useState("EUR/USD");
+
+useEffect(()=>{
+  testBackend()
+  .then((data)=>{
+    console.log("Backend test successful:", data);
+  })
+  .catch((error)=>{
+    console.error("Backend test failed:", error);
+  });
+
+},[]);
 
   return (
     <div className="trading-page">
