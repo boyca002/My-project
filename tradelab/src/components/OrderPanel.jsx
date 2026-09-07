@@ -1,159 +1,119 @@
 import { useState } from "react";
+import { useTrading } from "../context/TradingContext";
 
-function OrderPanel() {
-  const [side, setSide] = useState("buy");
+function OrderPanel({
+  symbol,
+  marketPrice
+}) {
+  const { openPosition } = useTrading();
+
+  const [volume, setVolume] = useState("0.10");
+  const [stopLoss, setStopLoss] = useState("");
+  const [takeProfit, setTakeProfit] = useState("");
+
+  const handleOrder = (side) => {
+    if (marketPrice === null) {
+      return;
+    }
+
+    const volumeNumber = Number(volume);
+
+    if (!volumeNumber || volumeNumber <= 0) {
+      alert("Enter a valid volume.");
+      return;
+    }
+
+    openPosition({
+      symbol,
+      side,
+      volume: volumeNumber,
+      entryPrice: marketPrice,
+      stopLoss: stopLoss
+        ? Number(stopLoss)
+        : null,
+      takeProfit: takeProfit
+        ? Number(takeProfit)
+        : null
+    });
+
+    console.log(
+      `${side} ${symbol} opened at ${marketPrice}`
+    );
+  };
 
   return (
     <aside className="order-panel">
 
-      {/* Account */}
-      <div className="panel-section">
-
-        <h3>ACCOUNT</h3>
-
-        <div className="account-balance">
-          $10,000.00
-        </div>
-
-        <p className="account-label">
-          Available demo balance
-        </p>
-
-        <div className="account-metrics">
-
-          <div className="metric">
-            <span>Equity</span>
-            <strong>$10,000.00</strong>
-          </div>
-
-          <div className="metric">
-            <span>Today's P/L</span>
-            <strong className="profit">
-              $0.00
-            </strong>
-          </div>
-
-          <div className="metric">
-            <span>Margin</span>
-            <strong>$0.00</strong>
-          </div>
-
-          <div className="metric">
-            <span>Free Margin</span>
-            <strong>$10,000.00</strong>
-          </div>
-
-        </div>
-
+      <div className="order-panel-header">
+        <h3>Order</h3>
+        <span>DEMO</span>
       </div>
 
-
-      {/* Order */}
-      <div className="panel-section">
-
-        <h3>PLACE DEMO ORDER</h3>
-
-        <div className="order-tabs">
-
-          <button
-            className={side === "buy" ? "buy active" : "buy"}
-            onClick={() => setSide("buy")}
-          >
-            BUY
-          </button>
-
-          <button
-            className={side === "sell" ? "sell active" : "sell"}
-            onClick={() => setSide("sell")}
-          >
-            SELL
-          </button>
-
-        </div>
-
-
-        <div className="form-field">
-
-          <label>VOLUME (LOTS)</label>
-
-          <input
-            type="number"
-            defaultValue="0.10"
-            min="0.01"
-            step="0.01"
-          />
-
-        </div>
-
-
-        <div className="form-field">
-
-          <label>STOP LOSS</label>
-
-          <input
-            type="number"
-            placeholder="Optional"
-          />
-
-        </div>
-
-
-        <div className="form-field">
-
-          <label>TAKE PROFIT</label>
-
-          <input
-            type="number"
-            placeholder="Optional"
-          />
-
-        </div>
-
-
-        <div className="order-buttons">
-
-          <button className="buy-order">
-            BUY MARKET
-          </button>
-
-          <button className="sell-order">
-            SELL MARKET
-          </button>
-
-        </div>
-
+      <div className="order-symbol">
+        {symbol}
       </div>
 
+      <div className="order-price">
+        {marketPrice !== null
+          ? marketPrice.toFixed(5)
+          : "---"}
+      </div>
 
-      {/* Watchlist */}
-      <div className="panel-section">
+      <div className="order-field">
+        <label>Volume</label>
 
-        <h3>WATCHLIST</h3>
+        <input
+          type="number"
+          value={volume}
+          min="0.01"
+          step="0.01"
+          onChange={(event) =>
+            setVolume(event.target.value)
+          }
+        />
+      </div>
 
-        <div className="watch-item">
-          <span>★ EUR/USD</span>
-          <strong>1.17240</strong>
-        </div>
+      <div className="order-field">
+        <label>Stop Loss</label>
 
-        <div className="watch-item">
-          <span>★ GBP/USD</span>
-          <strong>1.35410</strong>
-        </div>
+        <input
+          type="number"
+          value={stopLoss}
+          placeholder="Optional"
+          onChange={(event) =>
+            setStopLoss(event.target.value)
+          }
+        />
+      </div>
 
-        <div className="watch-item">
-          <span>★ USD/JPY</span>
-          <strong>147.280</strong>
-        </div>
+      <div className="order-field">
+        <label>Take Profit</label>
 
-        <div className="watch-item">
-          <span>★ XAU/USD</span>
-          <strong>3,465.20</strong>
-        </div>
+        <input
+          type="number"
+          value={takeProfit}
+          placeholder="Optional"
+          onChange={(event) =>
+            setTakeProfit(event.target.value)
+          }
+        />
+      </div>
 
-        <div className="watch-item">
-          <span>★ BTC/USD</span>
-          <strong>112,840</strong>
-        </div>
+      <div className="order-buttons">
+
+        <button
+          className="buy-button"
+          onClick={() => handleOrder("BUY")}
+        >
+          BUY
+        </button>
+
+        <button
+          className="sell-button"
+          onClick={() => handleOrder("SELL")}
+        >
+          SELL
+        </button>
 
       </div>
 

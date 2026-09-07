@@ -1,38 +1,41 @@
-import { Search, Settings } from "lucide-react";
-
-function TopBar() {
+function TopBar({
+  symbol,
+  marketPrice,
+  priceChange
+}) {
   return (
-    <header className="topbar">
+    <header className="top-bar">
 
       <div className="market-info">
-        <div className="symbol-name">
-          EUR/USD
+
+        <div className="market-symbol">
+          {symbol}
         </div>
 
-        <div className="current-price">
-          1.17240
+        <div className="market-price">
+          {marketPrice !== null
+            ? marketPrice.toFixed(5)
+            : "---"}
         </div>
 
-        <div className="price-change">
-          +0.18%
+        <div
+          className={
+            priceChange !== null &&
+            priceChange >= 0
+              ? "price-change positive"
+              : "price-change negative"
+          }
+        >
+          {priceChange !== null
+            ? `${priceChange >= 0 ? "+" : ""}${priceChange.toFixed(2)}%`
+            : "---"}
         </div>
+
       </div>
 
-      <div className="topbar-actions">
-
-        <button>
-          <Search size={16} />
-          Search
-        </button>
-
-        <button>
-          <Settings size={16} />
-        </button>
-
-        <button className="reset-button">
-          ↻ Reset Demo
-        </button>
-
+      <div className="top-bar-actions">
+        <button>Search</button>
+        <button>Settings</button>
       </div>
 
     </header>
