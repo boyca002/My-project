@@ -9,7 +9,7 @@ router.get("/market", async (req, res) => {
       timeframe = "15m"
     } = req.query;
 
-    // Convert our frontend symbols to BiQuote symbols
+    // Frontend symbol → BiQuote symbol
     const symbolMap = {
       "EUR/USD": "EURUSD",
       "GBP/USD": "GBPUSD",
@@ -27,18 +27,20 @@ router.get("/market", async (req, res) => {
       });
     }
 
-    // BiQuote interval format
-    const allowedTimeframes = [
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "4h",
-      "1d"
-    ];
+    // Frontend timeframe → BiQuote interval
+    const timeframeMap = {
+      "1m": "1m",
+      "5m": "5m",
+      "15m": "15m",
+      "1H": "1h",
+      "4H": "4h",
+      "1D": "1d"
+    };
 
-    if (!allowedTimeframes.includes(timeframe)) {
+    const apiTimeframe =
+      timeframeMap[timeframe];
+
+    if (!apiTimeframe) {
       return res.status(400).json({
         success: false,
         message: `Unsupported timeframe: ${timeframe}`
@@ -47,7 +49,7 @@ router.get("/market", async (req, res) => {
 
     const url =
       `https://biquote.io/api/${apiSymbol}/ohlc` +
-      `?interval=${timeframe}` +
+      `?interval=${apiTimeframe}` +
       `&limit=100`;
 
     console.log(
@@ -57,9 +59,13 @@ router.get("/market", async (req, res) => {
     const response = await fetch(url);
 
     if (!response.ok) {
-      const errorText = await response.text();
+      const errorText =
+        await response.text();
 
-      console.error("BiQuote error:", errorText);
+      console.error(
+        "BiQuote error:",
+        errorText
+      );
 
       return res.status(response.status).json({
         success: false,
@@ -68,31 +74,38 @@ router.get("/market", async (req, res) => {
       });
     }
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
     console.log(
       `Received ${data.bars?.length || 0} bars`
     );
 
-    if (!data.bars || data.bars.length === 0) {
+    if (
+      !data.bars ||
+      data.bars.length === 0
+    ) {
       return res.status(404).json({
         success: false,
         message: "No market data available"
       });
     }
 
-    // Convert BiQuote data into Lightweight Charts format
     const candles = data.bars
-  .map((bar) => ({
-    time: Math.floor(
-      new Date(bar.openTime).getTime() / 1000
-    ),
-    open: Number(bar.open),
-    high: Number(bar.high),
-    low: Number(bar.low),
-    close: Number(bar.close)
-  }))
-  .sort((a, b) => a.time - b.time);
+      .map((bar) => ({
+        time: Math.floor(
+          new Date(
+            bar.openTime
+          ).getTime() / 1000
+        ),
+        open: Number(bar.open),
+        high: Number(bar.high),
+        low: Number(bar.low),
+        close: Number(bar.close)
+      }))
+      .sort(
+        (a, b) => a.time - b.time
+      );
 
     res.json({
       success: true,
@@ -102,11 +115,15 @@ router.get("/market", async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Market data error:", error);
+    console.error(
+      "Market data error:",
+      error
+    );
 
     res.status(500).json({
       success: false,
-      message: "Failed to fetch market data"
+      message:
+        "Failed to fetch market data"
     });
   }
 });

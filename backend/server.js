@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import marketRoutes from "./routes/MarketRoutes.js";
+ import dotenv from "dotenv";
+ import marketRoutes from "./routes/MarketRoutes.js";
 
 dotenv.config();
 
@@ -30,10 +30,10 @@ app.get("/api/test", (req, res) => {
   });
 });
 
-app.use("/api", marketRoutes);
+ app.use("/api", marketRoutes);
 
-const PORT = process.env.PORT || 5000;
 
+const  PORT= process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`TradeLab backend running on PORT ${PORT}`);
 });
