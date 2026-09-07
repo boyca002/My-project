@@ -7,6 +7,15 @@ import {
 
 const TradingContext = createContext();
 
+const contractSizes = {
+  "EUR/USD": 100000,
+  "GBP/USD": 100000,
+  "USD/JPY": 100000,
+  "XAU/USD": 100,
+  "BTC/USD": 1
+};
+
+
 export function TradingProvider({ children }) {
   const [balance, setBalance] = useState(10000);
 
@@ -84,10 +93,15 @@ export function TradingProvider({ children }) {
             ? currentPrice - position.entryPrice
             : position.entryPrice - currentPrice;
 
-        const profit =
-          priceDifference *
-          position.volume *
-          100000;
+            
+
+            const contractSize =
+  contractSizes[position.symbol] || 100000;
+
+const profit =
+  priceDifference *
+  position.volume *
+  contractSize;
 
         let shouldClose = false;
         let closeReason = null;
