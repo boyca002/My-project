@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-
+import StrategySignal from "../components/StrategySignal";
 import AccountSummary from "../components/AccountSummary";
 import { useTrading } from "../context/TradingContext";
 import TopBar from "../components/TopBar";
@@ -120,6 +120,11 @@ useEffect(()=>{
             timeframe={timeframe}
           />
 
+
+<StrategySignal
+    symbol={symbol}
+    timeframe={timeframe}
+  />
           <PositionsPanel />
 
         </div>
