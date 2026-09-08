@@ -1381,3 +1381,298 @@ select {
   color: #ffffff;
   font-size: 13px;
 }
+.strategy-signal {
+  background: #111827;
+  border-top: 1px solid #1f2937;
+  border-bottom: 1px solid #1f2937;
+  padding: 16px 18px;
+  color: #ffffff;
+}
+
+.strategy-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.strategy-header h3 {
+  margin: 0;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.strategy-header span {
+  padding: 3px 7px;
+  background: #1f2937;
+  border-radius: 4px;
+  color: #9ca3af;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.strategy-symbol {
+  margin-bottom: 10px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.signal-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.signal-buy {
+  background: #14532d;
+  color: #4ade80;
+  border: 1px solid #166534;
+}
+
+.signal-sell {
+  background: #7f1d1d;
+  color: #f87171;
+  border: 1px solid #991b1b;
+}
+
+.signal-hold {
+  background: #374151;
+  color: #d1d5db;
+  border: 1px solid #4b5563;
+}
+
+.signal-strength {
+  margin-top: 14px;
+}
+
+.signal-strength-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.signal-strength-header span {
+  color: #6b7280;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.signal-strength-header strong {
+  color: #ffffff;
+  font-size: 11px;
+}
+
+.strength-bar {
+  width: 100%;
+  height: 5px;
+  background: #1f2937;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.strength-bar-fill {
+  height: 100%;
+  background: #22c55e;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.strategy-reason {
+  margin-top: 12px;
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+.strategy-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #1f2937;
+}
+
+.strategy-price span {
+  color: #6b7280;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.strategy-price strong {
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.strategy-indicators {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.indicator-row {
+  padding: 8px;
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  border-radius: 5px;
+}
+
+.indicator-row span {
+  display: block;
+  margin-bottom: 4px;
+  color: #6b7280;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.indicator-row strong {
+  color: #ffffff;
+  font-size: 11px;
+}
+
+.strategy-status {
+  margin-top: 12px;
+  color: #4b5563;
+  font-size: 10px;
+  text-align: right;
+}
+
+.strategy-message {
+  padding: 20px;
+  color: #9ca3af;
+  text-align: center;
+  font-size: 12px;
+}
+
+.strategy-error {
+  padding: 12px;
+  background: #2a1115;
+  border: 1px solid #7f1d1d;
+  border-radius: 5px;
+  color: #f87171;
+  font-size: 11px;
+}
+.indicator-menu-container {
+  position: relative;
+}
+
+.indicator-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 100;
+
+  width: 210px;
+
+  padding: 10px;
+
+  background: #111827;
+
+  border: 1px solid #374151;
+
+  border-radius: 7px;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.indicator-menu-title {
+  margin-bottom: 8px;
+
+  color: #9ca3af;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.05em;
+}
+
+.indicator-option {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 7px 6px;
+
+  border-radius: 5px;
+
+  color: #d1d5db;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.indicator-option:hover {
+  background: #1f2937;
+}
+
+.indicator-option input {
+  cursor: pointer;
+}
+
+.indicator-divider {
+  height: 1px;
+
+  margin: 9px 0;
+
+  background: #1f2937;
+}
+.indicator-config {
+  margin-bottom: 4px;
+}
+
+.indicator-period {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  padding:
+    3px
+    6px
+    6px
+    28px;
+}
+
+.indicator-period label {
+  color: #6b7280;
+
+  font-size: 10px;
+}
+
+.indicator-period input {
+  width: 55px;
+
+  padding: 4px 5px;
+
+  background: #0f172a;
+
+  border: 1px solid #374151;
+
+  border-radius: 4px;
+
+  color: #ffffff;
+
+  font-size: 10px;
+
+  outline: none;
+}
+
+.indicator-period input:focus {
+  border-color: #6b7280;
+}
