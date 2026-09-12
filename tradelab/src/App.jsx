@@ -13,12 +13,16 @@ import TradingLayout from "./Layout/TradingLayout";
 
 import { TradingProvider } from "./context/TradingContext";
 
+import { ChartProvider } from "./context/ChartContext";
+
+
 import "./index.css";
 
 function App() {
   return (
     <BrowserRouter>
       <TradingProvider>
+      <ChartProvider> 
         <TradingLayout>
           <Routes>
             <Route
@@ -72,6 +76,7 @@ function App() {
             />
           </Routes>
         </TradingLayout>
+      </ChartProvider>
       </TradingProvider>
     </BrowserRouter>
   );

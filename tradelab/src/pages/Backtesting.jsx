@@ -1,8 +1,13 @@
+import { loadHistoricalData } from "../services/historicalDataService";
+
 function Backtesting() {
   return (
     <div className="page">
       <h1>Backtesting</h1>
-      <p>Test your trading strategies against historical market data.</p>
+
+      <p>
+        Test your trading strategies against historical market data.
+      </p>
     </div>
   );
 }
