@@ -6,10 +6,12 @@ router.get("/market", async (req, res) => {
   try {
     const {
       symbol = "EUR/USD",
-      timeframe = "15m"
+      timeframe = "15m",
+      startDate,
+      endDate,
+      limit = 100
     } = req.query;
 
-    // Frontend symbol → BiQuote symbol
     const symbolMap = {
       "EUR/USD": "EURUSD",
       "GBP/USD": "GBPUSD",
@@ -27,7 +29,6 @@ router.get("/market", async (req, res) => {
       });
     }
 
-    // Frontend timeframe → BiQuote interval
     const timeframeMap = {
       "1m": "1m",
       "5m": "5m",
@@ -47,16 +48,43 @@ router.get("/market", async (req, res) => {
       });
     }
 
+    const safeLimit = Math.min(
+      Math.max(Number(limit) || 100, 1),
+      1000
+    );
+
+    const params = new URLSearchParams({
+      interval: apiTimeframe,
+      limit: safeLimit.toString()
+    });
+
+    if (startDate) {
+      params.set(
+        "from",
+        `${startDate}T00:00:00Z`
+      );
+    }
+
+    if (endDate) {
+      params.set(
+        "to",
+        `${endDate}T23:59:59Z`
+      );
+    }
+
     const url =
-      `https://biquote.io/api/${apiSymbol}/ohlc` +
-      `?interval=${apiTimeframe}` +
-      `&limit=100`;
+      `https://biquote.io/api/${apiSymbol}/ohlc?${params.toString()}`;
 
     console.log(
       `Market request: ${symbol} ${timeframe}`
     );
 
-    const response = await fetch(url);
+    console.log(
+      `Historical range: ${startDate || "latest"} → ${endDate || "latest"}`
+    );
+
+    const response =
+      await fetch(url);
 
     if (!response.ok) {
       const errorText =
@@ -69,7 +97,8 @@ router.get("/market", async (req, res) => {
 
       return res.status(response.status).json({
         success: false,
-        message: "BiQuote market API error",
+        message:
+          "BiQuote market API error",
         error: errorText
       });
     }
@@ -87,30 +116,44 @@ router.get("/market", async (req, res) => {
     ) {
       return res.status(404).json({
         success: false,
-        message: "No market data available"
+        message:
+          "No market data available for the selected period."
       });
     }
 
     const candles = data.bars
+      .filter(
+        (bar) =>
+          !bar.isOpen
+      )
       .map((bar) => ({
         time: Math.floor(
           new Date(
             bar.openTime
           ).getTime() / 1000
         ),
+
         open: Number(bar.open),
+
         high: Number(bar.high),
+
         low: Number(bar.low),
+
         close: Number(bar.close)
       }))
       .sort(
-        (a, b) => a.time - b.time
+        (a, b) =>
+          a.time - b.time
       );
 
     res.json({
       success: true,
       symbol,
       timeframe,
+      startDate:
+        startDate || null,
+      endDate:
+        endDate || null,
       candles
     });
 

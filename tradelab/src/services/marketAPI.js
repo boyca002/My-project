@@ -1,10 +1,19 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function getMarketData(symbol, timeframe) {
+export async function getMarketData(symbol, timeframe,
+  startDate, endDate, limit = 1000
+) {
   const params = new URLSearchParams({
     symbol,
     timeframe,
+    limit: limit.toString()
   });
+  if(startDate){
+    params.set("startDate", startDate);
+  }
+  if(endDate){
+    params.set("endDate", endDate);
+  }
 
   const url = `${API_URL}/market?${params.toString()}`;
 
