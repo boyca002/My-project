@@ -232,27 +232,72 @@ export function runBacktest({
       ? (wins / trades.length) *
         100
       : 0;
+      const grossProfit =
+  trades
+    .filter(
+      (trade) =>
+        trade.profit > 0
+    )
+    .reduce(
+      (total, trade) =>
+        total + trade.profit,
+      0
+    );
 
-  return {
-    success: true,
+const grossLoss =
+  trades
+    .filter(
+      (trade) =>
+        trade.profit < 0
+    )
+    .reduce(
+      (total, trade) =>
+        total + Math.abs(
+          trade.profit
+        ),
+      0
+    );
 
-    startingBalance,
+const profitFactor =
+  grossLoss > 0
+    ? grossProfit / grossLoss
+    : grossProfit > 0
+      ? Infinity
+      : 0;
 
-    endingBalance:
-      balance,
+const expectancy =
+  trades.length > 0
+    ? totalProfit / trades.length
+    : 0;
 
-    netProfit:
-      totalProfit,
+ return {
+  success: true,
 
-    totalTrades:
-      trades.length,
+  startingBalance,
 
-    wins,
+  endingBalance:
+    balance,
 
-    losses,
+  netProfit:
+    totalProfit,
 
-    winRate,
+  totalTrades:
+    trades.length,
 
-    trades
-  };
+  wins,
+
+  losses,
+
+  winRate,
+
+  grossProfit,
+
+  grossLoss,
+
+  profitFactor,
+
+  expectancy,
+
+  trades
+};
 }
